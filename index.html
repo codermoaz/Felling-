@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>محمد & ميرنا ❤️</title>
+    <link rel="icon" type="image/jpg" href="media/photo.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ffdde1 0%, #f9c9d4 100%);
+            font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "❤️";
+            font-size: 180px;
+            position: absolute;
+            bottom: -40px;
+            left: -50px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "✨";
+            font-size: 200px;
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .love-card {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255, 248, 245, 0.96);
+            backdrop-filter: blur(3px);
+            border-radius: 68px;
+            padding: 2rem 1.8rem 2.5rem;
+            box-shadow: 0 30px 45px rgba(231, 76, 110, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .heart-welcome {
+            margin: 15px 0 8px;
+            font-size: 2.8rem;
+            animation: pulseHeart 1.6s infinite ease;
+            display: inline-block;
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(0.95); }
+            70% { transform: scale(1.1); text-shadow: 0 0 12px #ff6985; }
+            100% { transform: scale(0.95); }
+        }
+
+        .main-title {
+            font-size: 1.85rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, #c44569, #e66785);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 10px 0;
+        }
+
+        .sub {
+            color: #a5516b;
+            font-weight: 500;
+            background: rgba(255, 235, 240, 0.7);
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 40px;
+            margin-bottom: 32px;
+        }
+
+        .secret-section {
+            background: rgba(255, 242, 242, 0.7);
+            border-radius: 60px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+
+        .password-label {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #ad3f5a;
+            margin-bottom: 16px;
+        }
+
+        .password-input-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        #passwordInput {
+            flex: 2;
+            min-width: 180px;
+            background: white;
+            border: 2px solid #ffc0d0;
+            border-radius: 60px;
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            text-align: center;
+            font-weight: 600;
+            color: #a13252;
+            outline: none;
+        }
+
+        #passwordInput:focus {
+            border-color: #e66785;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(105deg, #e66785, #d45373);
+            border: none;
+            padding: 0 32px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .unlock-btn:hover {
+            transform: scale(0.96);
+        }
+
+        .error-msg {
+            font-size: 0.9rem;
+            color: #d1455f;
+            background: #fff0f0;
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 40px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .story-container {
+            margin-top: 30px;
+            background: rgba(255, 248, 250, 0.95);
+            border-radius: 48px;
+            padding: 25px 22px;
+            display: none;
+            animation: fadeInUp 0.7s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .story-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #b13e5c;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* تنسيق الرسالة الجديدة */
+        .love-message-new {
+            background: linear-gradient(135deg, #fff5f8, #ffeef3);
+            border-radius: 42px;
+            padding: 30px 25px;
+            margin: 12px 0;
+            text-align: center;
+            border: 1px solid #ffe0e8;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        .msg-section {
+            margin-bottom: 35px;
+            padding: 0 5px;
+        }
+
+        .msg-section p {
+            font-size: 1.08rem;
+            line-height: 2;
+            color: #3d2a32;
+            margin: 12px 0;
+        }
+
+        .msg-section .highlight {
+            color: #c43b60;
+            font-weight: bold;
+            font-size: 1.12rem;
+        }
+
+        .msg-section .big-highlight {
+            color: #c44569;
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: rgba(255, 220, 230, 0.5);
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 30px;
+        }
+
+        .heart-divider {
+            font-size: 1.4rem;
+            letter-spacing: 8px;
+            color: #e66785;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .emoji-deco {
+            font-size: 1.8rem;
+            margin: 10px 0;
+        }
+
+        .signature-final {
+            margin-top: 25px;
+            font-size: 1.15rem;
+            color: #b13e5c;
+            font-weight: bold;
+            border-top: 2px dashed #f0b0c4;
+            padding-top: 22px;
+            display: inline-block;
+            width: auto;
+        }
+
+        .small-heart-icon {
+            display: inline-block;
+            animation: pulseHeart 1.6s infinite ease;
+        }
+
+        .gallery-btn {
+            margin-top: 28px;
+            background: linear-gradient(135deg, #ff6b8a, #d94f70);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 6px 14px rgba(217, 79, 112, 0.3);
+        }
+
+        .gallery-btn:hover {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(217, 79, 112, 0.4);
+        }
+
+        .audio-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(135deg, #ff6b8a, #d94f70);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .audio-btn:hover {
+            transform: scale(0.95);
+        }
+
+        .audio-btn.playing {
+            background: linear-gradient(135deg, #6bd66b, #3cae3c);
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="love-card">
+    <div class="audio-box">
+        <audio id="loveAudio" loop>
+            <source src="media/sound.mp3" type="audio/mpeg">
+        </audio>
+        <button class="audio-btn" id="audioBtn">🎵 تشغيل الموسيقى</button>
+    </div>
+
+    <div class="heart-welcome">❤️ محمد & ميرنا ❤️</div>
+    <div class="main-title">اكتبي كلمة السر ياروحي عشان</div>
+    <div class="sub">تبدأ حكاية حب لا تنسى 😍✨</div>
+
+    <div class="secret-section">
+        <div class="password-label">🗝️ كلمة السر ✨</div>
+        <div class="password-input-group">
+            <input type="text" id="passwordInput" placeholder="***" autocomplete="off">
+            <button class="unlock-btn" id="unlockBtn">💘 افتحي يا حبيبتي 💘</button>
+        </div>
+        <div id="errorMsg" class="error-msg">❌ كلمة السر غير صحيحة 💔</div>
+    </div>
+
+    <div id="storyReveal" class="story-container">
+        <div class="story-title">
+            <span>📖</span> رسالة من قلبي لقلبك <span>💌</span>
+        </div>
+
+        <!-- الرسالة الجديدة بتنسيق مقسم وجميل -->
+        <div class="love-message-new">
+            
+            <!-- القسم الأول -->
+            <div class="msg-section">
+                <div class="emoji-deco">🥹♥️</div>
+                <p><span class="highlight">عارفه انا بحبك عشان ملقتش ونيس للعمر احسن منك</span></p>
+                <p>عارفه يعني اي اشوفك حبيبتي وسندي وضهري واني احبك حب ملوش حدود</p>
+                <p>عايز اقولك اني بحبك وعايزك تبقي جنبي تشركيني واشتركك نبقا لبعض وجنب بعض طول الوقت 🥹♥️</p>
+            </div>
+
+            <div class="heart-divider">🌸💖🌸</div>
+
+            <!-- القسم الثاني -->
+            <div class="msg-section">
+                <p>عايز اقولك اني بحبك اوي ي اجمل بنات الكون</p>
+                <p><span class="big-highlight">انتي الحياة و انتي وانتي اللي منوره حياتي و روحي</span></p>
+                <p>ربنا يخليكي ليا ي اجمل بنات الكون بحبك اوي اوي ي حبيبتي</p>
+                <p>وكل يوم بدعي ربنا يحفظك ليا ويحميكي ويبعد عنك اي حاجه وحشه</p>
+                <p><span class="highlight">انا جنبك لاخر يوم في عمري هفضل احبك لاخر يوم من عمري</span></p>
+                <p>بحبك عشان ملقتش ونس للعمر احسن منك 🌚♥️</p>
+            </div>
+
+            <div class="heart-divider">💗✨💗</div>
+
+            <!-- القسم الثالث -->
+            <div class="msg-section">
+                <p>عارفه بحبك لي لانك اجمل حاجه حصلت فحياتي</p>
+                <p><span class="big-highlight">انتي فرحه قلبي وسندي وهفضل جنبك ومعاكي وفضهرك</span></p>
+                <p>ومقدرش علي غيابك ولا اقدر اعيش من غيرك</p>
+                <p>انتي دنيتي وحياتي اللي انا عايش عشانها وانتي كل حكايتي الحلوة</p>
+                <p>انتي سعادتي وفرحة عمري عمر ما اهتمامي يقل ليكي ابداً</p>
+                <p>ولو قصرت فحقكك تقوليلي بس ده بيبقى غصب عني 🫀♥️</p>
+            </div>
+
+            <div class="heart-divider">🌹💕🌹</div>
+
+            <!-- القسم الرابع -->
+            <div class="msg-section">
+                <p>انا اصلاً مقدرش اقصر معاكي ابدا انتي النبض انتي الحياه</p>
+                <p>عايزك تكوني عارفه اني بحبكك وبحب هزارك وبحب ضحكتك</p>
+                <p><span class="highlight">بموت فيكي اقسم بالله انتي حياتي ونتي عمري</span></p>
+                <p>انتي نجمة ووقعت من السماء ودخلت جوه قلبي ✨♥️</p>
+            </div>
+
+            <div class="heart-divider">💫🌟💫</div>
+
+            <!-- القسم الخامس -->
+            <div class="msg-section">
+                <p>انتي وخده كل وقتي وكل تفكيري</p>
+                <p>بحبكك وعمري م هحب حد قدك ولا هحب بعدك</p>
+                <p><span class="big-highlight">انتي جنتي الحلوه الي بهرب من العالم كله معاها عشان ابقي معاكي وبس</span> 🪐♥️</p>
+                <p>ربنا يخليكي ليا وميحرمنيش منك ابداا يروح قلبي</p>
+            </div>
+
+            <div class="heart-divider">💖💖💖</div>
+
+            <!-- القسم السادس -->
+            <div class="msg-section">
+                <p>عارف اني ساعات بزعلك بس والله غصب عني مش عايزك تزعلي مني ابداً</p>
+                <p>بتمناا دايماً من ربنا انك تكوني لياا الثانيه الي بتغيبي فيها عني بيبقاا اليوم ملوش لازمه من غيرك</p>
+                <p>انتي الي بتحلي وقتي لما اكون تعبان مش بلاقي حد غيرك اتكلم معاه</p>
+                <p><span class="highlight">كل نبضه فقلبي بتنبض باسمك انتي وبس</span></p>
+                <p>بحبك ي قلب بابا وبموت فيكي</p>
+                <p>انتي حاجه كده صعب تتوصف ولا كلام الدنيا كله هيوصفك 🎶♥️</p>
+            </div>
+
+            <div class="heart-divider">🎀💗🎀</div>
+
+            <!-- القسم السابع -->
+            <div class="msg-section">
+                <p>عشان مفيش ملاك بيتوصف مهما اتكلمت مش هعرف اوصف نقطه من حبي ليكي</p>
+                <p><span class="big-highlight">انتي كل حياتي ربنا يخليكي ليا وميحرمنيش منك ابدا</span></p>
+                <p>وبتمنا من ربنا تبقي ايامك كلها فرح وسعاده ونبقي مع بعض ديما وحبنا لبعض ميقلش ابداا</p>
+                <p>بحبك ي بنت قلبي 💍♥️</p>
+            </div>
+
+            <div class="heart-divider">🌙✨🌙</div>
+
+            <!-- القسم الثامن -->
+            <div class="msg-section">
+                <p>وعايز اقولك ان كل لحظه معاكي بتعلمني يعني ايه حب حقيقي</p>
+                <p>يعني ايه يكون في حد بيشوفك احسن من الدنيا كلها</p>
+                <p>يعني ايه قلبك يدق لمجرد انك سمعت كلمة من اللي بتحبه</p>
+                <p><span class="highlight">انا معاكي عرفت يعني ايه الاهتمام يعني ايه حد يحس بيك من غير ما تتكلم</span></p>
+                <p>ويعرف وجعك من غير ما تشرح ويعرف فرحتك من مجرد ضحكتك</p>
+                <p><span class="big-highlight">انتي اللي علمتيني ان الحب مش مجرد كلمه بتتقال</span></p>
+                <p>الحب هو تفاصيل صغيره اهتمام صباحي رساله بالليل خوف في وقت تعب ضحكه في وقت حزن 👑♥️</p>
+            </div>
+
+            <div class="heart-divider">🕊️💕🕊️</div>
+
+            <!-- القسم التاسع -->
+            <div class="msg-section">
+                <p>انا مش عارف ازاي كنت عايش من غيرك قبل كدا اصلا</p>
+                <p>يمكن كنت ماشي وخلاص يمكن كنت موجود لكن مش عايش</p>
+                <p>بس من يوم ما عرفتك حسيت اني بدات اعيش بجد</p>
+                <p>بقيت بحلم باليوم اللي تكوني معايا فيه كل حاجه فيكي حلم ليا ولازم يتحقق</p>
+                <p><span class="big-highlight">انتي بالنسبالي مش جزء من مستقبلي انتي بالنسبالي مستقبلي كله</span> 💭♥️</p>
+                <p class="highlight">ربنا يخليكي ليا ي عوض ربنا ليا 🥺🪐♥️</p>
+            </div>
+
+            <div class="heart-divider">💘💘💘</div>
+
+            <div class="signature-final">
+                دايماً بتاعك.. ومش هسيبك أبداً 🤍<br>
+                بحبك أوي أوي يا مارو
+            </div>
+        </div>
+
+        <div class="signature">
+          وعد هنفضل مع بعض طول العمر ❤️
+        </div>
+        <button class="gallery-btn" onclick="goToGallery()"> ادخلي هنا كمان يا حبيبتي ❤️</button>
+    </div>
+</div>
+
+<script>
+    // الأغنية
+    const audio = document.getElementById('loveAudio');
+    const audioBtn = document.getElementById('audioBtn');
+    let isPlaying = false;
+
+    audioBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            audioBtn.innerHTML = "🎵 تشغيل الموسيقى";
+            audioBtn.classList.remove('playing');
+            isPlaying = false;
+        } else {
+            audio.play();
+            audioBtn.innerHTML = "⏸️ إيقاف الموسيقى";
+            audioBtn.classList.add('playing');
+            isPlaying = true;
+        }
+    });
+
+    // كلمة السر: 4/7/2010
+    const passwordInput = document.getElementById('passwordInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const storyContainer = document.getElementById('storyReveal');
+
+    function showError() {
+        errorMsg.style.opacity = '1';
+        setTimeout(() => {
+            errorMsg.style.opacity = '0';
+        }, 2500);
+    }
+
+    function unlockStory() {
+        if (storyContainer.style.display === 'block') return;
+        storyContainer.style.display = 'block';
+        storyContainer.scrollIntoView({ behavior: 'smooth' });
+        
+        // قلوب احتفال
+        for (let i = 0; i < 25; i++) {
+            setTimeout(() => createHeart(), i * 50);
+        }
+    }
+
+    function validatePassword(input) {
+        return input.trim() === "4/7/2010";
+    }
+
+    function attemptUnlock() {
+        if (validatePassword(passwordInput.value)) {
+            unlockStory();
+            errorMsg.style.opacity = '0';
+        } else {
+            showError();
+        }
+    }
+
+    unlockBtn.addEventListener('click', attemptUnlock);
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') attemptUnlock();
+    });
+
+    storyContainer.style.display = 'none';
+    errorMsg.style.opacity = '0';
+
+    // قلوب متطايرة
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 450);
+
+    // الانتقال للصفحة الثانية
+    function goToGallery() {
+        window.location.href = "gallery.html";
+    }
+</script>
+
+</body>
+</html>

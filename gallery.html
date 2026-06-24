@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أول يوم اتكلمنا فيه يا مارو</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #ffdce5, #ffc8d6);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            padding: 30px 15px;
+            overflow-x: hidden;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            color: #c44569;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .music-control {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(135deg, #ff6b8a, #d94f70);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .audio-btn:hover {
+            transform: scale(0.95);
+        }
+
+        .audio-btn.playing {
+            background: linear-gradient(135deg, #6bd66b, #3cae3c);
+        }
+
+        /* مربع العداد */
+        .counter-box {
+            background: linear-gradient(135deg, #fff5f7, #ffeef2);
+            border-radius: 40px;
+            padding: 20px 25px;
+            margin: 0 auto 30px auto;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(196, 69, 105, 0.15);
+            border: 1px solid #ffd0da;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .counter-box .label {
+            font-size: 1.1rem;
+            color: #b55a72;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .counter-box .date-start {
+            font-size: 1rem;
+            color: #c44569;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .counter-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .counter-item {
+            text-align: center;
+            min-width: 65px;
+        }
+
+        .counter-item .number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #c44569;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            min-width: 70px;
+        }
+
+        .counter-item .unit {
+            font-size: 0.8rem;
+            color: #b55a72;
+            margin-top: 5px;
+        }
+
+        .counter-box .heart-icon {
+            font-size: 1.2rem;
+            margin-top: 12px;
+            color: #e66785;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .gallery {
+            max-width: 700px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .photo-box {
+            overflow: hidden;
+            border-radius: 35px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: 0.4s;
+            animation: fadeUp 1s ease;
+            position: relative;
+        }
+
+        .photo-box img {
+            width: 100%;
+            display: block;
+            transition: 0.5s;
+        }
+
+        .photo-box:hover img {
+            transform: scale(1.08);
+        }
+
+        .photo-box.active img {
+            transform: scale(1.18);
+        }
+
+        .photo-box::after {
+            content: "❤️";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 28px;
+            opacity: 0;
+            transition: 0.4s;
+            pointer-events: none;
+        }
+
+        .photo-box:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-btn {
+            display: block;
+            margin: 40px auto 20px;
+            background: linear-gradient(135deg, #c44569, #a53255);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .back-btn:hover {
+            transform: scale(0.95);
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="media/sound2.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control">
+        <button class="audio-btn" id="musicBtn">🎵 تشغيل الموسيقى</button>
+    </div>
+
+    <!-- مربع العداد -->
+    <div class="counter-box">
+        <div class="label">📅 أول يوم اتكلمنا فيه يا مارو</div>
+        <div class="date-start">من 20/3/2025</div>
+        <div class="counter-numbers">
+            <div class="counter-item">
+                <div class="number" id="days">0</div>
+                <div class="unit">يوم</div>
+            </div>
+            <div class="counter-item">
+                <div class="number" id="hours">0</div>
+                <div class="unit">ساعة</div>
+            </div>
+            <div class="counter-item">
+                <div class="number" id="minutes">0</div>
+                <div class="unit">دقيقة</div>
+            </div>
+            <div class="counter-item">
+                <div class="number" id="seconds">0</div>
+                <div class="unit">ثانية</div>
+            </div>
+        </div>
+        <div class="heart-icon">❤️ كل ثانية بتعدي وانت في قلبي ❤️</div>
+    </div>
+
+    <div class="title">📸 أجمل صورنا ❤️</div>
+
+    <div class="gallery">
+        <div class="photo-box"><img src="media/photo.jpg" alt="صورة 1"></div>
+        <div class="photo-box"><img src="media/photo2.jpg" alt="صورة 2"></div>
+        <div class="photo-box"><img src="media/photo3.jpg" alt="صورة 3"></div>
+        <div class="photo-box"><img src="media/photo4.jpg" alt="صورة 4"></div>
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+        <button class="back-btn" onclick="goBack()">🏠 العودة للحكاية</button>
+    </div>
+
+    <script>
+        // الأغنية
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.innerHTML = "🎵 تشغيل الموسيقى";
+                musicBtn.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                music.play();
+                musicBtn.innerHTML = "⏸️ إيقاف الموسيقى";
+                musicBtn.classList.add('playing');
+                isPlaying = true;
+            }
+        });
+
+        // العداد من 20/3/2025 (أول يوم اتكلمنا فيه)
+        function updateCounter() {
+            const startDate = new Date(2025, 2, 20); // 20 مارس 2025
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes;
+                document.getElementById('seconds').innerText = seconds;
+            } else {
+                document.getElementById('days').innerText = '0';
+                document.getElementById('hours').innerText = '0';
+                document.getElementById('minutes').innerText = '0';
+                document.getElementById('seconds').innerText = '0';
+            }
+        }
+
+        // تحديث العداد كل ثانية
+        updateCounter();
+        setInterval(updateCounter, 1000);
+
+        // زوم الصور
+        const photos = document.querySelectorAll('.photo-box');
+        photos.forEach(photo => {
+            photo.addEventListener('click', () => {
+                photos.forEach(p => {
+                    if (p !== photo) p.classList.remove('active');
+                });
+                photo.classList.toggle('active');
+            });
+        });
+
+        // قلوب متطايرة
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        setInterval(createHeart, 400);
+
+        // العودة للصفحة الأولى
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
